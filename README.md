@@ -13,5 +13,7 @@ Assignment1
 由于无法找到资料1中的 ccrypto library所以我们采用了资料2中所述的tensorflow来构建所需的LSTM模型，本项目所使用的library版本为tensorflow==1.9.0，keras==2.2.0。
 随后，主要根据资料3中的研究使用Vanguard Total Stock Market ETF（VTI）的每日调整收盘价作为研究标的物，使用VTI从2015年11月25日至2018年11月23日三年的历史价格，将数据集分为60%训练集、20%验证集和20%测试集。使用训练集对模型进行训练，使用验证集对模型超参数进行调整，最后使用测试集对模型的性能进行测试。
 ### (1)使用前60%的数据训练LSTM，得到如下基本模型
-![](https://github.com/algo21-220040033/Assignment1/edit/main/Screen_shot/model_summary.PNG)
-
+![](Screen_shot/model_summary.PNG)
+### (2)确定最佳参数N
+![](Screen_shot/optimal_N.PNG)
+我们可以得到在N=3时，RMSE最小，所以N_optimal=3
