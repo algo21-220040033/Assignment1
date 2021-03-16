@@ -35,8 +35,9 @@ optimum dropout_prob = 1.0
 
 ## 3、最终LSTM模型及test结果
 N=3,epochs=50,batch_size=8,lstm_units=128,dropput_prob=1.0,optimizer='nadam'
+![](Screen_shot/final_result.png)
+
 RMSE on test set = 1.164
 MAPE on test set = 0.583%
-![](Screen_shot/final_result.png)
 
 
