@@ -23,6 +23,23 @@ Assignment1
 
 optimum epochs = 50
 optimum batch_size = 8
+这时RMSE最小
 ### (4)确定最佳参数LSTM units and dropout prob
 ![](Screen_shot/opt_units_dropprob.PNG)
+
+optimum lstm_units = 128
+optimum dropout_prob = 1.0
+这时RMSE最小
+### (5)确定最佳optimizer
+最佳optimizer是nadam，RMSE最小
+
+## 3、最终LSTM模型及test结果
+N=3,epochs=50,batch_size=8,lstm_units=128,dropput_prob=1.0,optimizer='nadam'
+![](Screen_shot/final model.png)
+
+![](Screen_shot/final_result.png)
+
+RMSE on test set = 1.164
+MAPE on test set = 0.583%
+
 
