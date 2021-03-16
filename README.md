@@ -16,4 +16,13 @@ Assignment1
 ![](Screen_shot/model_summary.PNG)
 ### (2)确定最佳参数N
 ![](Screen_shot/optimal_N.PNG)
+
 我们可以得到在N=3时，RMSE最小，所以N_optimal=3
+### (3)确定最佳参数epochs and batch_size
+![](Screen_shot/opt_batch_epochs.PNG)
+
+optimum epochs = 50
+optimum batch_size = 8
+### (4)确定最佳参数LSTM units and dropout prob
+![](Screen_shot/opt_units_dropprob.PNG)
+
