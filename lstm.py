@@ -308,6 +308,205 @@ ax.set_ylabel("USD")
 # print(error_rate)
 # error_rate
 
+# # Plot RMSE
+# rcParams['figure.figsize'] = 10, 8 # width 10, height 8
+#
+# ax = error_rate.plot(x='N', y='rmse', style='bx-', grid=True)
+# ax = error_rate.plot(x='N', y='mape_pct', style='rx-', grid=True, ax=ax)
+# ax.set_xlabel("N")
+# ax.set_ylabel("RMSE/MAPE(%)")
+
+# # Get optimum value for param
+# temp = error_rate[error_rate['rmse'] == error_rate['rmse'].min()]
+# N_opt = temp['N'].values[0]
+# print("min RMSE = %0.3f" % error_rate['rmse'].min())
+# print("min MAPE = %0.3f%%" % error_rate['mape_pct'].min())
+# print("optimum " + param_label + " = " + str(N_opt))
+
+# param_label = 'epochs'
+# param_list = [1, 10, 20, 30, 40, 50]
+#
+# param2_label = 'batch_size'
+# param2_list = [8, 16, 32, 64, 128]
+#
+# # Split train into x and y
+# x_train_scaled, y_train_scaled = get_x_y(train_scaled, N_opt, N_opt)
+#
+# # Split cv into x and y
+# x_cv_scaled, y_cv, mu_cv_list, std_cv_list = get_x_scaled_y(np.array(train_cv['adj_close']).reshape(-1, 1), N_opt,
+#                                                             num_train)
+#
+# error_rate = {param_label: [], param2_label: [], 'rmse': [], 'mape_pct': []}
+# tic = time.time()
+# for param in tqdm_notebook(param_list):
+#
+#     for param2 in tqdm_notebook(param2_list):
+#         # Train, predict and eval model
+#         rmse, mape, _ = train_pred_eval_model(x_train_scaled, \
+#                                               y_train_scaled, \
+#                                               x_cv_scaled, \
+#                                               y_cv, \
+#                                               mu_cv_list, \
+#                                               std_cv_list, \
+#                                               lstm_units=lstm_units, \
+#                                               dropout_prob=dropout_prob, \
+#                                               optimizer=optimizer, \
+#                                               epochs=param, \
+#                                               batch_size=param2)
+#
+#         # Collect results
+#         error_rate[param_label].append(param)
+#         error_rate[param2_label].append(param2)
+#         error_rate['rmse'].append(rmse)
+#         error_rate['mape_pct'].append(mape)
+#
+# error_rate = pd.DataFrame(error_rate)
+# toc = time.time()
+# print("Minutes taken = " + str((toc - tic) / 60.0))
+# error_rate
+
+# # Plot performance versus params
+# rcParams['figure.figsize'] = 10, 8 # width 10, height 8
+# temp = error_rate[error_rate[param2_label]==param2_list[0]]
+# ax = temp.plot(x=param_label, y='rmse', style='bs-', grid=True)
+# legend_list = [param2_label + '_' + str(param2_list[0])]
+#
+# color_list = ['r', 'g', 'k', 'y', 'm', 'c', '0.75']
+# for i in range(1,len(param2_list)):
+#     temp = error_rate[error_rate[param2_label]==param2_list[i]]
+#     ax = temp.plot(x=param_label, y='rmse', color=color_list[i%len(color_list)], marker='s', grid=True, ax=ax)
+#     legend_list.append(param2_label + '_' + str(param2_list[i]))
+#
+# ax.set_xlabel(param_label)
+# ax.set_ylabel("RMSE")
+# matplotlib.rcParams.update({'font.size': 14})
+# plt.legend(legend_list, loc='center left', bbox_to_anchor=(1.0, 0.5)) # positions legend outside figure
+# # ax.set_xlim([10, 50])
+# # ax.set_ylim([0, 5])
+
+# # Get optimum value for param and param2
+# temp = error_rate[error_rate['rmse'] == error_rate['rmse'].min()]
+# epochs_opt = temp[param_label].values[0]
+# batch_size_opt = temp[param2_label].values[0]
+# print("min RMSE = %0.3f" % error_rate['rmse'].min())
+# print("min MAPE = %0.3f%%" % error_rate['mape_pct'].min())
+# print("optimum " + param_label + " = " + str(epochs_opt))
+# print("optimum " + param2_label + " = " + str(batch_size_opt))
+
+# param_label = 'lstm_units'
+# param_list = [10, 50, 64, 128]
+#
+# param2_label = 'dropout_prob'
+# param2_list = [0.5, 0.6, 0.7, 0.8, 0.9, 1]
+#
+# error_rate = {param_label: [], param2_label: [], 'rmse': [], 'mape_pct': []}
+# tic = time.time()
+# for param in tqdm_notebook(param_list):
+#
+#     for param2 in tqdm_notebook(param2_list):
+#         # Train, predict and eval model
+#         rmse, mape, _ = train_pred_eval_model(x_train_scaled, \
+#                                               y_train_scaled, \
+#                                               x_cv_scaled, \
+#                                               y_cv, \
+#                                               mu_cv_list, \
+#                                               std_cv_list, \
+#                                               lstm_units=param, \
+#                                               dropout_prob=param2, \
+#                                               optimizer=optimizer, \
+#                                               epochs=epochs_opt, \
+#                                               batch_size=batch_size_opt)
+#
+#         # Collect results
+#         error_rate[param_label].append(param)
+#         error_rate[param2_label].append(param2)
+#         error_rate['rmse'].append(rmse)
+#         error_rate['mape_pct'].append(mape)
+#
+# error_rate = pd.DataFrame(error_rate)
+# toc = time.time()
+# print("Minutes taken = " + str((toc - tic) / 60.0))
+# error_rate
+
+# # Plot performance versus params
+# rcParams['figure.figsize'] = 10, 8 # width 10, height 8
+# temp = error_rate[error_rate[param2_label]==param2_list[0]]
+# ax = temp.plot(x=param_label, y='rmse', style='bs-', grid=True)
+# legend_list = [param2_label + '_' + str(param2_list[0])]
+#
+# color_list = ['r', 'g', 'k', 'y', 'm', 'c', '0.75']
+# for i in range(1,len(param2_list)):
+#     temp = error_rate[error_rate[param2_label]==param2_list[i]]
+#     ax = temp.plot(x=param_label, y='rmse', color=color_list[i%len(color_list)], marker='s', grid=True, ax=ax)
+#     legend_list.append(param2_label + '_' + str(param2_list[i]))
+#
+# ax.set_xlabel(param_label)
+# ax.set_ylabel("RMSE")
+# matplotlib.rcParams.update({'font.size': 14})
+# plt.legend(legend_list, loc='center left', bbox_to_anchor=(1.0, 0.5)) # positions legend outside figure
+
+# # Get optimum value for param and param2
+# temp = error_rate[error_rate['rmse'] == error_rate['rmse'].min()]
+# lstm_units_opt = temp[param_label].values[0]
+# dropout_prob_opt = temp[param2_label].values[0]
+# print("min RMSE = %0.3f" % error_rate['rmse'].min())
+# print("min MAPE = %0.3f%%" % error_rate['mape_pct'].min())
+# print("optimum " + param_label + " = " + str(lstm_units_opt))
+# print("optimum " + param2_label + " = " + str(dropout_prob_opt))
+
+# param_label = 'optimizer'
+# param_list = ['adam', 'sgd', 'rmsprop', 'adagrad', 'adadelta', 'adamax', 'nadam']
+#
+# error_rate = {param_label: [], 'rmse': [], 'mape_pct': []}
+# tic = time.time()
+# for param in tqdm_notebook(param_list):
+#     # Train, predict and eval model
+#     rmse, mape, _ = train_pred_eval_model(x_train_scaled, \
+#                                           y_train_scaled, \
+#                                           x_cv_scaled, \
+#                                           y_cv, \
+#                                           mu_cv_list, \
+#                                           std_cv_list, \
+#                                           lstm_units=lstm_units_opt, \
+#                                           dropout_prob=dropout_prob_opt, \
+#                                           optimizer=param, \
+#                                           epochs=epochs_opt, \
+#                                           batch_size=batch_size_opt)
+#
+#     # Collect results
+#     error_rate[param_label].append(param)
+#     error_rate['rmse'].append(rmse)
+#     error_rate['mape_pct'].append(mape)
+#
+# error_rate = pd.DataFrame(error_rate)
+# toc = time.time()
+# print("Minutes taken = " + str((toc - tic) / 60.0))
+# error_rate
+
+# # Plot RMSE
+# rcParams['figure.figsize'] = 10, 8 # width 10, height 8
+#
+# ax = error_rate.plot(x='optimizer', y='rmse', style='bx-', grid=True)
+# ax = error_rate.plot(x='optimizer', y='mape_pct', style='rx-', grid=True, ax=ax)
+# ax.set_xticklabels(param_list)
+# ax.set_xlabel("Optimizer")
+# ax.set_ylabel("RMSE/MAPE(%)"
+
+# # Get optimum value for param and param2
+# temp = error_rate[error_rate['rmse'] == error_rate['rmse'].min()]
+# optimizer_opt = temp[param_label].values[0]
+# print("min RMSE = %0.3f" % error_rate['rmse'].min())
+# print("min MAPE = %0.3f%%" % error_rate['mape_pct'].min())
+# print("optimum " + param_label + " = " + str(optimizer_opt))
+
+# d = {'param': ['N', 'lstm_units', 'dropout_prob', 'optimizer', 'epochs', 'batch_size', 'rmse', 'mape_pct'],
+#      'original': [N, lstm_units, dropout_prob, optimizer, epochs, batch_size, rmse_bef_tuning, mape_pct_bef_tuning],
+#      'after_tuning': [N_opt, lstm_units_opt, dropout_prob_opt, optimizer_opt, epochs_opt, batch_size_opt, error_rate['rmse'].min(), error_rate['mape_pct'].min()]}
+# tuned_params = pd.DataFrame(d)
+# tuned_params
+
+
+
 N_opt=3
 epochs_opt=50
 batch_size_opt=8
