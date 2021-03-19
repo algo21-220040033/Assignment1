@@ -3,9 +3,9 @@ Assignment1
 # 1、Abstract
 The goal of this project is to predict the price of the subject matter based on the LSTM deep learning model.
 # 2、Reference material
-1、《基于LSTM的比特币价格预测模型（系列1）》
-2、《预测股市崩盘基于统计机器学习与神经网络》
-3、《严谨解决5种机器学习算法在预测股价的应用》
+1、《Bitcoin price forecasting model based on LSTM》
+2、《Forecasting stock market crash based on statistical machine learning and neural network》
+3、《Rigorous solution to the application of five machine learning algorithms in stock price forecasting》
 # 3、Research process
 ## 1、Data acquisition
 According to the requirements in reference 1, I obtain the price data of the three trading pairs described in the information through the API of coin exchange. The specific code can be seen in 'data_get' file.In the process of writing the code, we found the base in the security API document base_url（https://api.binance.com ）unable to link. After consulting the information, we change the URL to（https://api.binancezh.cc ）successfully solved the link problem.
