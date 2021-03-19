@@ -5,13 +5,12 @@ The goal of this project is to predict the price of the subject matter based on 
 # 2、Reference material
 1、《Bitcoin price forecasting model based on LSTM》
 2、《Forecasting stock market crash based on statistical machine learning and neural network》
-3、《Rigorous solution to the application of five machine learning algorithms in stock price forecasting》
 # 3、Research process
 ## 1、Data acquisition
 According to the requirements in reference 1, I obtain the price data of the three trading pairs described in the information through the API of coin exchange. The specific code can be seen in 'data_get' file.In the process of writing the code, we found the base in the security API document base_url（https://api.binance.com ）unable to link. After consulting the information, we change the URL to（https://api.binancezh.cc ）successfully solved the link problem.
 ## 2、Create and adjust LSTM model
 Since we can't find the ccryptolibrary in material 1, we use tensorflow described in material 2 to build the LSTM model，the library version used in this project is tensorflow==1.9.0，keras==2.2.0。
-Then, according to the research in data 3, the daily adjusted closing price of vanguard total stock market ETF (VTI) is used as the research object, and the historical price of VTI from November 25, 2015 to November 23, 2018 is used to divide the data set into 60% training set, 20% verification set and 20% test set. The training set is used to train the model, the verification set is used to adjust the super parameters of the model, and the test set is used to test the performance of the model.
+Then, according to the research decide the research object, the daily adjusted closing price of vanguard total stock market ETF (VTI) is used as the research object, and the historical price of VTI from November 25, 2015 to November 23, 2018 is used to divide the data set into 60% training set, 20% verification set and 20% test set. The training set is used to train the model, the verification set is used to adjust the super parameters of the model, and the test set is used to test the performance of the model.
 ### (1)Using the first 60% data to train LSTM, the following basic models are obtained
 ![](Screen_shot/model_summary.PNG)
 ### (2)Determine the best parameter N
